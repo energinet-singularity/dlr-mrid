@@ -1,21 +1,27 @@
 # Select base-image
-FROM python:3.10.0-slim-bullseye
+FROM python:3.8-slim
 
-# Load python requirements-file
-COPY app/requirements.txt /
+# Keeps Python from generating .pyc files in the container
+ENV PYTHONDONTWRITEBYTECODE=1
 
-# Upgrade pip., install requirements and add non-root user
-RUN pip3 install --upgrade pip && \
-    pip3 install -r requirements.txt --no-cache-dir && \
-    rm requirements.txt && \
-    groupadd -r localuser && \
-    useradd -r -g localuser localuser
+# Turns off buffering for easier container logging
+ENV PYTHONUNBUFFERED=1
 
-# Switch to new user-account
-USER localuser
+# Install pip requirements
+COPY requirements.txt .
+RUN apt-get update && apt install -y git 
+RUN python -m pip install -r requirements.txt
+RUN pip install git+https://github.com/energinet-singularity/singupy.git@feature/api#egg=singupy
 
-# Copy required files into container
-COPY app/* /app/
+WORKDIR /app
+COPY . /app
 
-# Run the application
-CMD ["python3", "-u", "/app/my_script.py"]
+EXPOSE 80
+
+# Creates a non-root user with an explicit UID and adds permission to access the /app folder
+# For more info, please refer to https://aka.ms/vscode-docker-python-configure-containers
+RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
+USER appuser
+
+# During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
+CMD ["python","-u", "main.py"]

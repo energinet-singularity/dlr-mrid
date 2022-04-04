@@ -50,13 +50,13 @@ If VERY heavy readme, update and use this TOC
 <!-- GETTING STARTED -->
 ## Getting Started
 
-The quickest way to have something running is through docker (see the section [Running container](#running-container)).
+This codeset is build to expose AMP measurment MRID relation to Line Segment MRID.
+Singupy/API is used to expose data on RESTAPI.
 
-Feel free to either import the python-file as a lib or run it directly - or use HELM to spin it up as a pod in kubernetes. These methods are not documented and you will need the know-how yourself (the files have been prep'ed to our best ability though).
 
 ### Dependencies
 
-<!-- Describe general dependencies here - what is neeeded to run the script/container/helm? -->
+https://github.com/energinet-singularity/singupy
   
 #### Python (if not run as part of the container)
 
