@@ -50,9 +50,9 @@ If VERY heavy readme, update and use this TOC
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This codeset is build to expose AMP measurment MRID relation to Line Segment MRID.
-Singupy/API is used to expose data on RESTAPI.
-
+This codeset is build to expose replation between measurment MRID of AMP used for DLR to MRID of Line Segment.
+Codeset read file genrated from ETS application and read this file using pandas application for cleanup data frame.
+in last we use Singupy/API to expose data on RESTAPI.
 
 ### Dependencies
 
