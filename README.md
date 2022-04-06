@@ -115,9 +115,9 @@ docker volume create XXXX
 
 3. Start the container in docker (change variables to fit your environment)
 ````bash
-docker run -v XXX:/app --rm dlr_mrid:latest
-docker run -v XXX:/app -e cycle_time=900 --rm dlr_mrid:latest
-docker run -v XXX:/app -e cycle_time=120 -e database_expose="testdata" --rm dlr_mrid:latest
+docker run -p 5000:5000 -v XXX:/app --rm dlr_mrid:latest
+docker run -p 5000:5000 -v XXX:/app -e cycle_time=900 --rm dlr_mrid:latest
+docker run -p 5000:5000 -v XXX:/app -e cycle_time=120 -e database_expose="testdata" --rm dlr_mrid:latest
 ````
 
 ## Help

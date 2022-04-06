@@ -1,4 +1,4 @@
 apiVersion: v2
-name: noname-script
-description: A freshly created template-script
+name: dlr-mrid
+description: A Helm chart for energinet-singularity/dlr-mrid
 version: 0.0.3
