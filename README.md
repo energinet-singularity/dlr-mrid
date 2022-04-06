@@ -44,6 +44,7 @@ This file is cleaned up using python pandas lib and result dataframe is exposed 
 ### Exposed environment variables
 
 |Name|Default|Description|
+|--|--|--|
 |cycle_time|900|cycle to read .csv file|
 |database_expose|xxxx|database name to be query from rest api|
 |file_name|dlr_mrid_PROD.csv|.csv file to be read|
