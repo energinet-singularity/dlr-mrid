@@ -1,4 +1,4 @@
-# Templated repo <!-- Change to repo name! -->
+# DLR_MRID <!-- Change to repo name! -->
 
 <!-- Insert a very short description of what the script/repo is for -->
 
@@ -65,13 +65,9 @@ curl -X POST http://localhost:port -H 'Content-Type: application/json' -d '{"sql
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This code set is build to expose relation between MRID of AMP measurments used for DLR with the MRID Line Segments.
-There can be many Amps measurement used for same lime segment as example differnt phases. 
-Code set read file in .csv format with header information. There is no limitation for number of coloms for future expansion.
-In our case this file generated from ETS application.
+The quickest way to have something running is through docker (see the section [Running container](#running-container)).
 
-This file is cleaned up using python pandas lib and result dataframe is exposed on REST API with Singupy/API.
-.csv file is read with a given interval in sec. and can be tunned while running container.
+Feel free to either import the python-file as a lib or run it directly - or use HELM to spin it up as a pod in kubernetes. These methods are not documented and you will need the know-how yourself (the files have been prep'ed to our best ability though).
 
 ### Dependencies
 
