@@ -115,7 +115,7 @@ docker volume create XXXX
 
 3. Start the container in docker (change variables to fit your environment)
 ````bash
-docker run -v XXX:/app -e --rm dlr_mrid:latest
+docker run -v XXX:/app --rm dlr_mrid:latest
 docker run -v XXX:/app -e cycle_time=900 --rm dlr_mrid:latest
 docker run -v XXX:/app -e cycle_time=900 -e database_expose="testdata" --rm dlr_mrid:latest
 docker run -v XXX:/app -e cycle_time=900 -e database_expose="testdata" -e file_name=yyy.csv  --rm dlr_mrid:latest
