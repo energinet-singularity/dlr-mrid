@@ -1,6 +1,12 @@
-#import pytest
-#import app.my_script
+import pytest
+import os
+
 
 # Dummytest which will always succeed - must be replaced by real tests
 def test_dummy():
     assert True
+
+
+def test_file():
+    
+

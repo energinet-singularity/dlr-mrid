@@ -74,6 +74,8 @@ Example:
 docker run my_script -v someVolume:/data -e MYVAR=smith"
 ```
  -->
+Built and tested on version 20.10.7.
+
 
 #### HELM (only relevant if using HELM for deployment)
 
@@ -83,7 +85,7 @@ Describe here what is needed before it can be run in docker - environment variab
 You could use this:
 The default helm values/properties are set in a way that allows the helm chart to be installed and run without crashes, but it will not be useful. To spin up the environment with helm, make sure to set (or overwrite) values to something meaningful.
 -->
-
+Built and tested on version 3.7.0.
 
 ### Running container
 
@@ -91,17 +93,18 @@ The default helm values/properties are set in a way that allows the helm chart t
 
 1. Clone the repo to a suitable place
 ````bash
-git clone http://myrepo.git
+git clone https://github.com/energinet-singularity/dlr-mrid.git
 ````
 
 2. Build the container
 ````bash
-docker build my_script -t my_script:latest
+docker build dlr_mrid/ -t dlr_mrid:latest
+docker volume create XXXX
 ````
 
 3. Start the container in docker (change variables to fit your environment)
 ````bash
-docker run -e MYVAR=foo -it --rm my_script:latest
+docker run -v XXX:/dlr_mrid.csv --rm dlr_mrid:latest
 ````
 
 ## Help

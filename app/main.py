@@ -1,4 +1,4 @@
-from singupy import api
+from singupy import api as singuapi
 import os
 import sys
 import pandas as pd
@@ -25,9 +25,9 @@ def main():
         sys.exit()
     
     dataframe = clean_file(path1)    
-    my_api = api.DataFrameAPI(dataframe)   
+    my_api = singuapi.DataFrameAPI(dataframe, dbname = 'SEG_MEAS_MRID')   
     while(True):
-      my_api.dataframe = clean_file(path1)
+      my_api['SEG_MEAS_MRID'] = clean_file(path1)
       sleep(5)
 
 
