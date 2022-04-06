@@ -5,17 +5,17 @@ import pandas as pd
 from time import sleep
 #import requests
 
-path1 ="/app/dlr_mrid.csv"
+file_name = "dlr_mrid_PROD.csv"
+path1 ="/app/" + file_name
+cycle_time = 900
+database_expose = "SEG_MEAS_MRID"
 
 
 def clean_file(file_loc):
-    #read file and remove white space
-    data = pd.read_csv(file_loc,delim_whitespace=True,on_bad_lines = 'skip')
-    #remove line 1 "----" and last " xx row effectd " from SQL export file
+    data = pd.read_csv(file_loc,delimiter=",",on_bad_lines = 'skip')
+    #remove line 1 "----" from SQL export file
     data.drop(data.head(1).index,inplace=True)
-    data.drop(data.tail(1).index,inplace=True)
     return data
-
 
 def main():
     if (os.path.isfile(path1)):
@@ -25,10 +25,10 @@ def main():
         sys.exit()
     
     dataframe = clean_file(path1)    
-    my_api = singuapi.DataFrameAPI(dataframe, dbname = 'SEG_MEAS_MRID')   
+    my_api = singuapi.DataFrameAPI(dataframe, dbname = database_expose)   
     while(True):
-      my_api['SEG_MEAS_MRID'] = clean_file(path1)
-      sleep(5)
+      my_api[database_expose] = clean_file(path1)
+      sleep(cycle_time)
 
 
 if __name__ == "__main__":

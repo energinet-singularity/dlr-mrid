@@ -33,28 +33,44 @@ If VERY heavy readme, update and use this TOC
 
 ## Description
 
-<!--
--- Insert a more detailed description here, and use the below headers where relevant --
+This code set is build to expose relation between MRID of AMP measurments used for DLR with the MRID Line Segments.
+There can be many Amps measurement used for same lime segment as example differnt phases. 
+Code set read file in .csv format with header information. There is no limitation for number of coloms for future expansion.
+In our case this file generated from ETS application.
+
+This file is cleaned up using python pandas lib and result dataframe is exposed on REST API with Singupy/API.
+.csv file is read with a given interval in sec. and can be tunned while running container.
 
 ### Exposed environment variables
 
 |Name|Default|Description|
-|--|--|--|
+|cycle_time|900|cycle to read .csv file|
+|database_expose|xxxx|database name to be query from rest api|
+|file_name|dlr_mrid_PROD.csv|.csv file to be read|
 
-### Input
+### File handling / Input
+
+Every cycle_time file_name(env variable) file is read 
 
 ### Output
 
+Data exposed via REST API. with database name came be read via
+
+````bash
+curl -X POST http://localhost:port -H 'Content-Type: application/json' -d '{"sql-query": "SELECT * FROM database_expose;"}
+````
 -->
 
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This code set is build to expose relation between measurement MRID of AMP used for DLR with the MRID Line Segment.
-There can be many Amps measurement used for same lime segment.
-Code set read file in .csv format with header information. There is no limitation for number of colons for future expansion.
-In our case this file generated from ETS application and read this file using python pandas lib for cleanup data frame.
-in last we use Singupy/API to expose data on RESTAPI.
+This code set is build to expose relation between MRID of AMP measurments used for DLR with the MRID Line Segments.
+There can be many Amps measurement used for same lime segment as example differnt phases. 
+Code set read file in .csv format with header information. There is no limitation for number of coloms for future expansion.
+In our case this file generated from ETS application.
+
+This file is cleaned up using python pandas lib and result dataframe is exposed on REST API with Singupy/API.
+.csv file is read with a given interval in sec. and can be tunned while running container.
 
 ### Dependencies
 
@@ -106,7 +122,8 @@ docker volume create XXXX
 
 3. Start the container in docker (change variables to fit your environment)
 ````bash
-docker run -v XXX:/dlr_mrid.csv --rm dlr_mrid:latest
+docker run -v XXX:/dlr_mrid_PROD.csv -e cycle_time=900 --rm dlr_mrid:latest
+docker run -v XXX:/dlr_mrid_PROD.csv -e cycle_time=900 -e database_expose="testdata" --rm dlr_mrid:latest
 ````
 
 ## Help
