@@ -33,10 +33,13 @@ If VERY heavy readme, update and use this TOC
 
 ## Description
 
-This code set is build to expose relation between MRID of AMP measurments used for DLR with the MRID Line Segments.
-There can be many Amps measurement used for same lime segment as example differnt phases. 
+This code set is build to expose relation between MRID of AMPs measurments used for DLR with the MRID of Line Segments.
+There can be many Amps measurement used for same lime segment as example AMPs from differnt phases and near and far terminals. 
 Code set read file in .csv format with header information. There is no limitation for number of coloms for future expansion.
-In our case this file generated from ETS application.
+In our case this file generated from ETS application with heade as below
+
+|TERMINAL_EMSNAME|FAR_NEAR|AMPS_MRID|LINESEGMENT_MRID|DLR_ENABLE
+|--|--|--|--|--|
 
 This file is cleaned up using python pandas lib and result dataframe is exposed on REST API with Singupy/API.
 .csv file is read with a given interval in sec. and can be tunned while running container.
