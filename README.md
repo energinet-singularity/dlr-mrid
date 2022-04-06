@@ -42,7 +42,7 @@ In our case this file generated from ETS application with heade as below
 |--|--|--|--|--|
 
 This file is cleaned up using python pandas lib and result dataframe is exposed on REST API with Singupy/API.
-.csv file is read with a given interval in sec. and can be tunned while running container.
+dlr_mrid_PROD.csv file is read with a given interval in sec. and can be tunned while running container.
 
 ### Exposed environment variables
 
@@ -50,11 +50,11 @@ This file is cleaned up using python pandas lib and result dataframe is exposed 
 |--|--|--|
 |cycle_time|900|cycle to read .csv file|
 |database_expose|SEG_MEAS_MRID|database name to be query from rest api|
-|file_name|dlr_mrid_PROD.csv|.csv file to be read|
+|file_name|dlr_mrid_PROD.csv|file name to be read by pandas|
 
 ### File handling / Input
 
-Every cycle_time file define by filename is read 
+Every cycle_time file define by filename is read. cycle_time should be greter then 10 sec and less then 30 days. otherwise it take defalut value. 
 
 ### Output
 
@@ -117,8 +117,7 @@ docker volume create XXXX
 ````bash
 docker run -v XXX:/app --rm dlr_mrid:latest
 docker run -v XXX:/app -e cycle_time=900 --rm dlr_mrid:latest
-docker run -v XXX:/app -e cycle_time=900 -e database_expose="testdata" --rm dlr_mrid:latest
-docker run -v XXX:/app -e cycle_time=900 -e database_expose="testdata" -e file_name=yyy.csv  --rm dlr_mrid:latest
+docker run -v XXX:/app -e cycle_time=120 -e database_expose="testdata" --rm dlr_mrid:latest
 ````
 
 ## Help
