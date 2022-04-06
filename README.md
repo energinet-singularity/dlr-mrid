@@ -46,12 +46,12 @@ This file is cleaned up using python pandas lib and result dataframe is exposed 
 |Name|Default|Description|
 |--|--|--|
 |cycle_time|900|cycle to read .csv file|
-|database_expose|xxxx|database name to be query from rest api|
+|database_expose|SEG_MEAS_MRID|database name to be query from rest api|
 |file_name|dlr_mrid_PROD.csv|.csv file to be read|
 
 ### File handling / Input
 
-Every cycle_time file_name(env variable) file is read 
+Every cycle_time file define by filename is read 
 
 ### Output
 
@@ -60,7 +60,6 @@ Data exposed via REST API. with database name came be read via
 ````bash
 curl -X POST http://localhost:port -H 'Content-Type: application/json' -d '{"sql-query": "SELECT * FROM database_expose;"}
 ````
--->
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -94,12 +93,6 @@ Built and tested on version 20.10.7.
 
 #### HELM (only relevant if using HELM for deployment)
 
-<!--
-Describe here what is needed before it can be run in docker - environment variables, volumes etc.
-
-You could use this:
-The default helm values/properties are set in a way that allows the helm chart to be installed and run without crashes, but it will not be useful. To spin up the environment with helm, make sure to set (or overwrite) values to something meaningful.
--->
 Built and tested on version 3.7.0.
 
 ### Running container
@@ -119,8 +112,10 @@ docker volume create XXXX
 
 3. Start the container in docker (change variables to fit your environment)
 ````bash
-docker run -v XXX:/dlr_mrid_PROD.csv -e cycle_time=900 --rm dlr_mrid:latest
-docker run -v XXX:/dlr_mrid_PROD.csv -e cycle_time=900 -e database_expose="testdata" --rm dlr_mrid:latest
+docker run -v XXX:/app -e --rm dlr_mrid:latest
+docker run -v XXX:/app -e cycle_time=900 --rm dlr_mrid:latest
+docker run -v XXX:/app -e cycle_time=900 -e database_expose="testdata" --rm dlr_mrid:latest
+docker run -v XXX:/app -e cycle_time=900 -e database_expose="testdata" -e file_name=yyy.csv  --rm dlr_mrid:latest
 ````
 
 ## Help
