@@ -50,8 +50,10 @@ If VERY heavy readme, update and use this TOC
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This codeset is build to expose replation between measurment MRID of AMP used for DLR to MRID of Line Segment.
-Codeset read file genrated from ETS application and read this file using pandas application for cleanup data frame.
+This code set is build to expose relation between measurement MRID of AMP used for DLR with the MRID Line Segment.
+There can be many Amps measurement used for same lime segment.
+Code set read file in .csv format with header information. There is no limitation for number of colons for future expansion.
+In our case this file generated from ETS application and read this file using python pandas lib for cleanup data frame.
 in last we use Singupy/API to expose data on RESTAPI.
 
 ### Dependencies
@@ -60,7 +62,7 @@ https://github.com/energinet-singularity/singupy
   
 #### Python (if not run as part of the container)
 
-The python script can probably run on any python 3.9+ version, but your best option will be to check the Dockerfile and use the same version as the container. Further requirements (python packages) can be found in the app/requirements.txt file.
+This python script can probably run on any python 3.9+ version, but your best option will be to check the Dockerfile and use the same version as the container. Further requirements (python packages) can be found in the app/requirements.txt file.
 
 #### Docker
 
