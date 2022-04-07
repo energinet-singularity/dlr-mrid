@@ -11,7 +11,7 @@ ENV PYTHONUNBUFFERED=1
 COPY requirements.txt .
 RUN apt-get update && apt install -y git 
 RUN python -m pip install -r requirements.txt
-RUN pip install git+https://github.com/energinet-singularity/singupy.git@feature/api#egg=singupy
+
 
 WORKDIR /app
 COPY . /app
