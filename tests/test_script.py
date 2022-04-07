@@ -1,5 +1,4 @@
 import pytest
-from singupy import api as singuapi
 import app.main
 import pandas as pd
 import os
