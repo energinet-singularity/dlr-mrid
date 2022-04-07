@@ -1,5 +1,5 @@
 import pytest
-import app.main
+#import app.main
 import pandas as pd
 import os
 
