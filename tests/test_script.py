@@ -17,12 +17,18 @@ def test_file_header():
     #dataframe = app.main.clean_file(path)
     dataframe = pd.read_csv(path,delimiter=",",on_bad_lines = 'skip')
     my_list = list(dataframe)
-    print(my_list)
     assert colon1 in my_list
     assert colon2 in my_list
     assert colon3 in my_list
-    
-    
+
+def test_clean_file():
+    path = f"{os.path.dirname(os.path.realpath(__file__))}/dlr_mrid_PROD.csv"
+    dataframe = app.main.clean_file(path)
+    colon1 = "-----"
+    if colon1 in dataframe.iloc[1]:
+        assert False
+    else:
+        assert True
 
 
 
