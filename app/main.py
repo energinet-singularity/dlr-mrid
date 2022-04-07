@@ -6,11 +6,16 @@ from time import sleep
 #import requests
 
 #enviroment varible for filename
-try:
-    os.environ.get('file_name')
-    path1 = "/app/" + str(os.environ.get('database_expose'))
-except:
-    path1 ="/app/dlr_mrid_PROD.csv"
+if os.environ.get('file_name') != None:
+    path1 = "/app/" + str(os.environ.get('file_name'))
+else:
+    path1 = "/app/dlr_mrid_PROD.csv"
+
+# if enviroment varible not define database_expose get default database name
+if os.environ.get('database_expose') != None:
+    database_expose = str(os.environ.get('database_expose'))
+else:
+    database_expose = "SEG_MEAS_MRID"
 
 #enviroment varible should be greated then 10 sec and less then 30 days else it get 15 min default
 try:
@@ -20,17 +25,9 @@ try:
 except:
     cycle_time = 900
 
-# if enviroment varible not define database_expose get default database name
-try:
-    os.environ.get('database_expose')
-    database_expose = str(os.environ.get('database_expose'))
-except:
-    database_expose = "SEG_MEAS_MRID"
-
-
+#enviroment varible file cleanup to remove 2 line "---""
 def clean_file(file_loc):
     data = pd.read_csv(file_loc,delimiter=",",on_bad_lines = 'skip')
-    #remove line 1 "----" from SQL export file
     data.drop(data.head(1).index,inplace=True)
     return data
 
@@ -48,6 +45,8 @@ def main():
 
 
 if __name__ == "__main__":
+    print("file read time in sec=", cycle_time )
+    print("database expose=", database_expose )
     main()
      
 
