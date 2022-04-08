@@ -29,3 +29,16 @@ def test_clean_file():
         assert False
     else:
         assert True
+
+def test_dataframe():
+    expected_dict = {'TERMINAL_EMSNAME': ['Dummy_line','Dummy_line'],
+                      'FAR_NEAR': ['N','F'],
+                      'AMPS_MRID': ['12345678-1234-abcd-efgh-123456789abc','12345678-1234-abcd-efgh-123456789def'],
+                      'LINESEGMENT_MRID': ['12345679-4567-ijkl-5678-123456789abc','12345679-4567-ijkl-5678-123456789abc'],
+                      'DLR_ENABLE': ['NO','YES']}
+    excepted_frame = pd.DataFrame.from_dict(expected_dict)                  
+    path = f"{os.path.dirname(os.path.realpath(__file__))}/dlr_mrid_PROD.csv"    
+    dataframe = app.main.clean_file(path)
+    print (dataframe)
+    print(excepted_frame)
+    assert dataframe.equals(excepted_frame)
