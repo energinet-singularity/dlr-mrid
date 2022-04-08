@@ -8,13 +8,12 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
 # Install pip requirements
-COPY requirements.txt .
+COPY app/requirements.txt /
 RUN apt-get update && apt install -y git 
-RUN python -m pip install -r requirements.txt
+RUN pip3 install --upgrade pip && pip3 install -r requirements.txt --no-cache-dir && rm requirements.txt
 
 
-WORKDIR /app
-COPY . /app
+COPY app/* /app/
 
 EXPOSE 80
 
@@ -24,4 +23,4 @@ RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /
 USER appuser
 
 # During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
-CMD ["python","-u", "main.py"]
+CMD ["python3","-u", "/app/main.py"]

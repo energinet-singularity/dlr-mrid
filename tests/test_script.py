@@ -29,7 +29,3 @@ def test_clean_file():
         assert False
     else:
         assert True
-
-
-
-

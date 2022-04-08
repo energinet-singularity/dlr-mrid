@@ -33,32 +33,35 @@ If VERY heavy readme, update and use this TOC
 
 ## Description
 
-This code set is build to expose relation between MRID of AMPs measurments used for DLR with the MRID of Line Segments.
+This code set is build to publish data on RESTAPI from .CSV file.
+
+Specific use:-
+in our usecase we publish data ain replation to MRID of AMPs measurments used for DLR with the MRID of Line Segments.
 There can be many Amps measurement used for same lime segment as example AMPs from differnt phases and near and far terminals. 
 Code set read file in .csv format with header information. There is no limitation for number of coloms for future expansion.
-In our case this file generated from ETS application with heade as below
+In our usecase this file generated from ETS application with header as below
 
 |TERMINAL_EMSNAME|FAR_NEAR|AMPS_MRID|LINESEGMENT_MRID|DLR_ENABLE
 |--|--|--|--|--|
 
 This file is cleaned up using python pandas lib and result dataframe is exposed on REST API with Singupy/API.
-dlr_mrid_PROD.csv file is read with a given interval in sec. and can be tunned while running container.
+dlr_mrid_PROD.csv file is read with a given interval in seconds and can be tadjusted while running container.
 
 ### Exposed environment variables
 
 |Name|Default|Description|
 |--|--|--|
-|cycle_time|900|cycle to read .csv file|
-|database_expose|SEG_MEAS_MRID|database name to be query from rest api|
+|cycle_time|900|cycletime for reading .csv file|
+|database_expose|SEG_MEAS_MRID|database name used for query from rest api|
 |file_name|dlr_mrid_PROD.csv|file name to be read by pandas|
 
 ### File handling / Input
 
-Every cycle_time file define by filename is read. cycle_time should be greter then 10 sec and less then 30 days. otherwise it take defalut value. 
+The file define by filename is read every cycle_time. The cycle_time should be greater than 10 secounds and less then 30 days, otherwise default value is used. 
 
 ### Output
 
-Data exposed via REST API. with database name came be read via
+Data exposed via REST API. Can be accessed via the shown query:
 
 ````bash
 curl -X POST http://localhost:port -H 'Content-Type: application/json' -d '{"sql-query": "SELECT * FROM database_expose;"}
@@ -109,15 +112,15 @@ git clone https://github.com/energinet-singularity/dlr-mrid.git
 
 2. Build the container
 ````bash
-docker build dlr_mrid/ -t dlr_mrid:latest
-docker volume create XXXX
+docker build dlr-mrid/ -t dlr-mrid:latest
+docker volume create "docker_volume"
 ````
 
 3. Start the container in docker (change variables to fit your environment)
 ````bash
-docker run -p 5000:5000 -v XXX:/app --rm dlr_mrid:latest
-docker run -p 5000:5000 -v XXX:/app -e cycle_time=900 --rm dlr_mrid:latest
-docker run -p 5000:5000 -v XXX:/app -e cycle_time=120 -e database_expose="testdata" --rm dlr_mrid:latest
+docker run -p 5000:5000 -v docker_volume:/app --rm dlr-mrid:latest
+docker run -p 5000:5000 -v docker_volume:/app -e cycle_time=900 --rm dlr-mrid:latest
+docker run -p 5000:5000 -v docker_volume:/app -e cycle_time=120 -e database_expose="testdata" --rm dlr-mrid:latest
 ````
 
 ## Help
