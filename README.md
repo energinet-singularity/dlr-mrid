@@ -64,7 +64,7 @@ The file define by filename is read every cycle_time. The cycle_time should be g
 Data exposed via REST API. Can be accessed via the shown query:
 
 ````bash
-curl -X POST http://localhost:port -H 'Content-Type: application/json' -d '{"sql-query": "SELECT * FROM database_expose;"}
+ curl -d '{"sql-query": "SELECT * FROM database_expose;"}' -H 'Content-Type: application/json' -X POST http://localhost:5000/
 ````
 
 <!-- GETTING STARTED -->
