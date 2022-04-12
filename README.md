@@ -1,4 +1,4 @@
-# DLR_MRID <!-- Change to repo name! -->
+# DLR_MRID 
 
 <!-- Insert a very short description of what the script/repo is for -->
 
@@ -36,16 +36,14 @@ If VERY heavy readme, update and use this TOC
 This code set is build to publish data on RESTAPI from .CSV file.
 
 Specific use:-
-in our usecase we publish data ain replation to MRID of AMPs measurments used for DLR with the MRID of Line Segments.
-There can be many Amps measurement used for same lime segment as example AMPs from differnt phases and near and far terminals. 
-Code set read file in .csv format with header information. There is no limitation for number of coloms for future expansion.
-In our usecase this file generated from ETS application with header as below
+in our usecase we publish data ain replation to MRID of AMPs measurments used for DLR with the MRID of Line Segments.There can be many Amps measurement used for same lime segment as example AMPs from differnt phases and near and far terminals. Code set read file in .csv format with header information. There is no limitation for number of coloms for future expansion.
 
-|TERMINAL_EMSNAME|FAR_NEAR|AMPS_MRID|LINESEGMENT_MRID|DLR_ENABLE
+In our usecase this file generated from ETS application with header as below.
+
+|TERMINAL_EMSNAME|FAR_NEAR|AMPS_MRID|LINESEGMENT_MRID|DLR_ENABLE|
 |--|--|--|--|--|
 
-This file is cleaned up using python pandas lib and result dataframe is exposed on REST API with Singupy/API.
-dlr_mrid_PROD.csv file is read with a given interval in seconds and can be tadjusted while running container.
+This file is cleaned up using python pandas lib and result dataframe is exposed on REST API with Singupy/API. Input file file is read with a given interval in seconds and can be adjusted while starting up container.
 
 ### Exposed environment variables
 
@@ -57,14 +55,14 @@ dlr_mrid_PROD.csv file is read with a given interval in seconds and can be tadju
 
 ### File handling / Input
 
-The file define by filename is read every cycle_time. The cycle_time should be greater than 10 secounds and less then 30 days, otherwise default value is used. 
+The file define by filename is read every cycle_time. The cycle_time should be greater than 10 secounds and less then 30 days, otherwise default value of 900 seconds is used.
 
 ### Output
 
 Data exposed via REST API. Can be accessed via the shown query:
 
 ````bash
- curl -d '{"sql-query": "SELECT * FROM database_expose;"}' -H 'Content-Type: application/json' -X POST http://localhost:5000/
+ curl -d '{"sql-query": "SELECT * FROM SEG_MEAS_MRID;"}' -H 'Content-Type: application/json' -X POST http://localhost:5000/
 ````
 
 <!-- GETTING STARTED -->
@@ -76,11 +74,11 @@ Feel free to either import the python-file as a lib or run it directly - or use 
 
 ### Dependencies
 
-https://github.com/energinet-singularity/singupy
+Custom python module, available here: https://github.com/energinet-singularity/singupy
   
 #### Python (if not run as part of the container)
 
-This python script can probably run on any python 3.9+ version, but your best option will be to check the Dockerfile and use the same version as the container. Further requirements (python packages) can be found in the app/requirements.txt file.
+This python script can probably run on any python 3.8+ version, but your best option will be to check the Dockerfile and use the same version as the container. Further requirements (python packages) can be found in the app/requirements.txt file.
 
 #### Docker
 
@@ -102,8 +100,6 @@ Built and tested on version 20.10.7.
 Built and tested on version 3.7.0.
 
 ### Running container
-
-<!-- PLEASE REMEMBER TO UPDATE THIS GUIDE!!! -->
 
 1. Clone the repo to a suitable place
 ````bash

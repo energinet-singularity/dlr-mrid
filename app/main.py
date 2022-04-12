@@ -6,7 +6,24 @@ import time
 
 
 #enviroment varible file cleanup to remove 2 line "---""
-def clean_file(file_loc):
+def clean_file(file_loc: str):
+    """ Read file from file_loc and remove 1 data line "-----"
+
+    Parameters
+    ----------
+    file_loc : str
+      full string path for file
+     
+    Returns
+    -------
+    dataframe 
+      pandas dataframe.
+
+    Example
+    ------    
+        >>> dataframe = clean_file("/home/dat_file.csv")
+        C
+    """
     data = pd.read_csv(file_loc, delimiter=",", on_bad_lines='skip')
     data.drop(data.head(1).index, inplace=True)
     data.reset_index(drop=True, inplace=True)
@@ -30,7 +47,7 @@ def main():
     #enviroment varible should be greated then 10 sec and less then 30 days else it get 15 min default
     try:
         os.environ.get('cycle_time')
-        if 10 < int(os.environ.get('cycle_time')) < 108720:
+        if 10 < int(os.environ.get('cycle_time')) < 60*60*24*30:
             cycle_time = int(os.environ.get('cycle_time'))
         else:
             cycle_time = 900
