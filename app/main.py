@@ -6,7 +6,8 @@ import time
 
 
 #enviroment varible file cleanup to remove 2 line "---""
-def clean_file(file_loc: str):
+
+def clean_file(file_loc: str) -> pd.DataFrame:
     """ Read file from file_loc and remove 1 data line "-----"
 
     Parameters
@@ -31,24 +32,28 @@ def clean_file(file_loc: str):
 
 
 def main():
-    old_stamp = 'init'
+    old_stamp = None
+
     #enviroment varible for filename
+
     if os.environ.get('file_name'):
-        filepath_csv = "/app/" + str(os.environ.get('file_name'))
+        filepath_csv = "/home/vku/git-singu/dlr-mrid/app/" + str(os.environ.get('file_name'))
     else:
-        filepath_csv = "/app/dlr_mrid_PROD.csv"
+        filepath_csv = "/home/vku/git-singu/dlr-mrid/app/dlr_mrid_PROD.csv"
 
     # if enviroment varible not define database_expose get default database name
+
     if os.environ.get('database_expose'):
         database_expose = str(os.environ.get('database_expose'))
+        print(database_expose)
     else:
         database_expose = "SEG_MEAS_MRID"
 
     #enviroment varible should be greated then 10 sec and less then 30 days else it get 15 min default
+    
     try:
-        os.environ.get('cycle_time')
         if 10 < int(os.environ.get('cycle_time')) < 60*60*24*30:
-            cycle_time = int(os.environ.get('cycle_time'))
+            cycle_time = os.environ.get('cycle_time')
         else:
             cycle_time = 900
     except Exception as e:
@@ -62,13 +67,12 @@ def main():
 
     print("file read time in sec=", cycle_time)
     print("database expose=", database_expose)
-    dataframe = clean_file(filepath_csv)
-    my_api = singuapi.DataFrameAPI(dataframe, dbname=database_expose)
+    my_api = singuapi.DataFrameAPI()
     while(True):
         new_stamp = time.ctime(os.path.getmtime(filepath_csv))
         if (new_stamp != old_stamp):
             my_api[database_expose] = clean_file(filepath_csv)
-        old_stamp = new_stamp
+            old_stamp = new_stamp
         time.sleep(cycle_time)
 
 

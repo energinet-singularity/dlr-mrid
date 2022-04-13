@@ -16,7 +16,7 @@ dlrmridInputVolume:
 
 dlrmridDataVolume:
   accessMode: ReadWriteOnce
-  size: 10M
+  size: 100M
   storageClass: standard
 
 file-mover:
@@ -31,6 +31,37 @@ file-mover:
         persistentVolumeClaim:
           claimName: dlr-mrid-pvc
 
+  podLabels:
+    dlr-mrid-filemover: "S1"
+  selectorLabels:
+    dlr-mrid-filemover: "S1"
+  affinity:
+    podAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 1
+        podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+              - key: dlr-mrid
+                operator: In
+                values:
+                - S1
+          topologyKey: "kubernetes.io/hostname"
+podLabels:
+  dlr-mrid: "S1"
+selectorLabels:
+  dlr-mrid: "S1"
+affinity:
+  podAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+            - key: dlr-mrid-filemover
+              operator: In
+              values:
+              - S1
+        topologyKey: "kubernetes.io/hostname"
+        
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""

@@ -1,5 +1,7 @@
 # DLR_MRID 
 
+TO expose data from .CSV file to REST API
+
 <!-- Insert a very short description of what the script/repo is for -->
 
 <!-- TABLE OF CONTENTS -->
