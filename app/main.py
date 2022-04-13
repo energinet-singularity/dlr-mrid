@@ -22,7 +22,6 @@ def clean_file(file_loc: str) -> pd.DataFrame:
     Example
     ------
         >>> dataframe = clean_file("/home/dat_file.csv")
-        C
     """
     data = pd.read_csv(file_loc, delimiter=",", on_bad_lines='skip')
     data.drop(data.head(1).index, inplace=True)
