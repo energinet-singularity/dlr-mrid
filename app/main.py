@@ -6,7 +6,6 @@ import time
 
 
 # enviroment varible file cleanup to remove 2 line "---""
-
 def clean_file(file_loc: str) -> pd.DataFrame:
     """ Read file from file_loc and remove 1 data line "-----"
 
@@ -35,14 +34,12 @@ def main():
     old_stamp = None
 
     # enviroment varible for filename
-
     if 'file_name' in os.environ:
         filepath_csv = "/data/" + str(os.environ.get('file_name'))
     else:
         filepath_csv = "/data/dlr_mrid_PROD.csv"
 
     # if enviroment varible not define database_expose get default database name
-
     if 'database_expose' in os.environ:
         database_expose = str(os.environ.get('database_expose'))
         print(database_expose)
@@ -50,7 +47,6 @@ def main():
         database_expose = "SEG_MEAS_MRID"
 
     # enviroment varible should be greated then 10 sec and less then 30 days else it get 15 min default
-
     try:
         if 10 < int(os.environ.get('cycle_time')) < 60*60*24*30:
             cycle_time = os.environ.get('cycle_time')

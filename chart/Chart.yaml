@@ -1,4 +1,4 @@
 apiVersion: 0.0.1
 name: dlr-mrid
 description: A Helm chart for energinet-singularity/dlr-mrid
-version: 0.0.10
+version: 0.0.11
