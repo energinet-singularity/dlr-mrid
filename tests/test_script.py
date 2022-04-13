@@ -21,8 +21,8 @@ def test_file_header():
 def test_clean_file():
     path = f"{os.path.dirname(os.path.realpath(__file__))}/dlr_mrid_PROD.csv"
     dataframe = app.main.clean_file(path)
-    colon1 = "-----"
-    if colon1 in dataframe.iloc[1]:
+    colon2 = "-----"
+    if colon2 in dataframe.iloc[1]:
         assert False
     else:
         assert True
