@@ -1,4 +1,6 @@
-# Templated repo <!-- Change to repo name! -->
+# DLR_MRID 
+
+TO expose data from .CSV file to REST API
 
 <!-- Insert a very short description of what the script/repo is for -->
 
@@ -33,19 +35,37 @@ If VERY heavy readme, update and use this TOC
 
 ## Description
 
-<!--
--- Insert a more detailed description here, and use the below headers where relevant --
+This code set is build to publish data on RESTAPI from .CSV file.
+
+Specific use:-
+in our usecase we publish data ain replation to MRID of AMPs measurments used for DLR with the MRID of Line Segments.There can be many Amps measurement used for same lime segment as example AMPs from differnt phases and near and far terminals. Code set read file in .csv format with header information. There is no limitation for number of coloms for future expansion.
+
+In our usecase this file generated from ETS application with header as below.
+
+|TERMINAL_EMSNAME|FAR_NEAR|AMPS_MRID|LINESEGMENT_MRID|DLR_ENABLE|
+|--|--|--|--|--|
+
+This file is cleaned up using python pandas lib and result dataframe is exposed on REST API with Singupy/API. Input file file is read with a given interval in seconds and can be adjusted while starting up container.
 
 ### Exposed environment variables
 
 |Name|Default|Description|
 |--|--|--|
+|cycle_time|900|cycletime for reading .csv file|
+|database_expose|SEG_MEAS_MRID|database name used for query from rest api|
+|file_name|dlr_mrid_PROD.csv|file name to be read by pandas|
 
-### Input
+### File handling / Input
+
+The file define by filename is read every cycle_time. The cycle_time should be greater than 10 secounds and less then 30 days, otherwise default value of 900 seconds is used.
 
 ### Output
 
--->
+Data exposed via REST API. Can be accessed via the shown query:
+
+````bash
+ curl -d '{"sql-query": "SELECT * FROM SEG_MEAS_MRID;"}' -H 'Content-Type: application/json' -X POST http://localhost:5000/
+````
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -56,11 +76,11 @@ Feel free to either import the python-file as a lib or run it directly - or use 
 
 ### Dependencies
 
-<!-- Describe general dependencies here - what is neeeded to run the script/container/helm? -->
+Custom python module, available here: https://github.com/energinet-singularity/singupy
   
 #### Python (if not run as part of the container)
 
-The python script can probably run on any python 3.9+ version, but your best option will be to check the Dockerfile and use the same version as the container. Further requirements (python packages) can be found in the app/requirements.txt file.
+This python script can probably run on any python 3.8+ version, but your best option will be to check the Dockerfile and use the same version as the container. Further requirements (python packages) can be found in the app/requirements.txt file.
 
 #### Docker
 
@@ -74,34 +94,31 @@ Example:
 docker run my_script -v someVolume:/data -e MYVAR=smith"
 ```
  -->
+Built and tested on version 20.10.7.
+
 
 #### HELM (only relevant if using HELM for deployment)
 
-<!--
-Describe here what is needed before it can be run in docker - environment variables, volumes etc.
-
-You could use this:
-The default helm values/properties are set in a way that allows the helm chart to be installed and run without crashes, but it will not be useful. To spin up the environment with helm, make sure to set (or overwrite) values to something meaningful.
--->
-
+Built and tested on version 3.7.0.
 
 ### Running container
 
-<!-- PLEASE REMEMBER TO UPDATE THIS GUIDE!!! -->
-
 1. Clone the repo to a suitable place
 ````bash
-git clone http://myrepo.git
+git clone https://github.com/energinet-singularity/dlr-mrid.git
 ````
 
 2. Build the container
 ````bash
-docker build my_script -t my_script:latest
+docker build dlr-mrid/ -t dlr-mrid:latest
+docker volume create "docker_volume"
 ````
 
 3. Start the container in docker (change variables to fit your environment)
 ````bash
-docker run -e MYVAR=foo -it --rm my_script:latest
+docker run -p 5000:5000 -v docker_volume:/data --rm dlr-mrid:latest
+docker run -p 5000:5000 -v docker_volume:/data -e cycle_time=900 --rm dlr-mrid:latest
+docker run -p 5000:5000 -v docker_volume:/data -e cycle_time=120 -e database_expose="testdata" --rm dlr-mrid:latest
 ````
 
 ## Help

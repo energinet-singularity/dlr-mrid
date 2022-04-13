@@ -5,31 +5,66 @@ replicaCount: 1
 
 #TEMPLATE INFO: Remember to fix the below repo path and remove this comment
 image:
-  repository: ghcr.io/energinet-singularity/<repo-name>/energinet-singularity/<image-name>
+  repository: ghcr.io/energinet-singularity/dlr-mrid/energinet-singularity/dlr-mrid
   pullPolicy: IfNotPresent
-  tag: "0.0.1"
+  tag: "0.0.11"
 
-#Default settings not used in this setup
+#Setup file-mover dependency first
+dlrmridInputVolume: 
+  persistentVolumeClaim:
+    claimName: dlr-mrid-pvc
+
+dlrmridDataVolume:
+  accessMode: ReadWriteOnce
+  size: 100M
+  storageClass: standard
+
+file-mover:
+  folderMounts:
+    input:
+      enabled: true
+      volume:
+        emptyDir: {}
+    output:
+      enabled: true
+      volume:
+        persistentVolumeClaim:
+          claimName: dlr-mrid-pvc
+
+  podLabels:
+    dlr-mrid-filemover: "S1"
+  selectorLabels:
+    dlr-mrid-filemover: "S1"
+  affinity:
+    podAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 1
+        podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+              - key: dlr-mrid
+                operator: In
+                values:
+                - S1
+          topologyKey: "kubernetes.io/hostname"
+podLabels:
+  dlr-mrid: "S1"
+selectorLabels:
+  dlr-mrid: "S1"
+affinity:
+  podAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+            - key: dlr-mrid-filemover
+              operator: In
+              values:
+              - S1
+        topologyKey: "kubernetes.io/hostname"
+        
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 podAnnotations: {}
-podSecurityContext: {}
-securityContext: {}
 nodeSelector: {}
 tolerations: []
-affinity: {}
-podLabels: {}
-selectorLabels: {}
-resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
-  
