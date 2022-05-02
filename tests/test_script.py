@@ -36,6 +36,4 @@ def test_dataframe():
     expected_frame = pd.DataFrame.from_dict(expected_dict)
     path = f"{os.path.dirname(os.path.realpath(__file__))}/valid-testdata/dlr_mrid_PROD.csv"
     dataframe = app.main.clean_file(path)
-    print(dataframe)
-    print(expected_frame)
     assert dataframe.equals(expected_frame)

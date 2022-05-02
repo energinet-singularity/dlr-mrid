@@ -1,9 +1,15 @@
-from singupy import api as singuapi
+# Genric modules
 import os
 import sys
-import pandas as pd
 import time
+import logging
 
+# Modules
+from singupy import api as singuapi
+import pandas as pd
+
+# Initialize log
+log = logging.getLogger(__name__)
 
 # enviroment varible file cleanup to remove 2 line "---""
 def clean_file(file_loc: str) -> pd.DataFrame:
@@ -31,37 +37,42 @@ def clean_file(file_loc: str) -> pd.DataFrame:
 
 def main():
     old_stamp = None
+    logging.basicConfig()
+    logging.getLogger().setLevel(logging.INFO)
 
     # enviroment varible for filename
     if 'file_name' in os.environ:
-        filepath_csv = "/data/" + str(os.environ.get('file_name'))
+        filepath_csv = "/data/" + os.environ.get('file_name')
     else:
         filepath_csv = "/data/dlr_mrid_PROD.csv"
 
     # if enviroment varible not define database_expose get default database name
     if 'database_expose' in os.environ:
-        database_expose = str(os.environ.get('database_expose'))
-        print(database_expose)
+        database_expose = os.environ.get('database_expose')
+        log.info(database_expose)
     else:
         database_expose = "SEG_MEAS_MRID"
 
     # enviroment varible should be greated then 10 sec and less then 30 days else it get 15 min default
     try:
         if 10 < int(os.environ.get('cycle_time')) < 60*60*24*30:
-            cycle_time = os.environ.get('cycle_time')
+            cycle_time = int(os.environ.get('cycle_time'))
         else:
             cycle_time = 900
     except Exception as e:
         cycle_time = 900
+        log.info(f" run with default cycle : {cycle_time}")
 
-    if (os.path.isfile(filepath_csv)):
-        print("file exists as", filepath_csv)
-    else:
-        print("no file exists as", filepath_csv)
-        sys.exit()
+    try:
+        os.path.isfile(filepath_csv)
+        log.info(f"file exists as : {filepath_csv} ")
+    except Exception as e:
+        log.info(f" no file exists as : {filepath_csv} ")
+        log.exception(f" reading file Failed with the message: '{e}'")
+        raise e
 
-    print("file read time in sec=", cycle_time)
-    print("database expose=", database_expose)
+    log.info(f"file read time in sec: {cycle_time}")
+    log.info(f"database expose : {database_expose} ")
     my_api = singuapi.DataFrameAPI()
     while(True):
         new_stamp = time.ctime(os.path.getmtime(filepath_csv))
