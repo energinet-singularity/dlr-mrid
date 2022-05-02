@@ -28,6 +28,14 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: file_name
+              value: {{ .Values.file.name }}
+            - name: database_expose
+              value: {{ .Values.database.expose }}
+            - name: cycle_time
+              value: {{ .Values.cycle.time }}
+              
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}

@@ -3,6 +3,7 @@
 # Declare variables to be passed into your templates.
 replicaCount: 1
 
+
 #TEMPLATE INFO: Remember to fix the below repo path and remove this comment
 image:
   repository: ghcr.io/energinet-singularity/dlr-mrid/energinet-singularity/dlr-mrid
@@ -25,7 +26,7 @@ file-mover:
       enabled: true
       volume:
         emptyDir: {}
-    output:
+    output:      
       enabled: true
       volume:
         persistentVolumeClaim:
@@ -68,3 +69,10 @@ fullnameOverride: ""
 podAnnotations: {}
 nodeSelector: {}
 tolerations: []
+
+file:
+  name: ""
+database:
+  expose: ""
+cycle:
+  time: ""
