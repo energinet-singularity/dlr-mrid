@@ -76,3 +76,6 @@ database:
   expose: ""
 cycle:
   time: ""
+use:
+  mock:
+    data: ""

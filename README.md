@@ -54,6 +54,7 @@ This file is cleaned up using python pandas lib and result dataframe is exposed 
 |cycle_time|900|cycletime for reading .csv file|
 |database_expose|SEG_MEAS_MRID|database name used for query from rest api|
 |file_name|dlr_mrid_PROD.csv|file name to be read by pandas|
+|use_mock_data|TRUE|TRUE if we want to read mock data|
 
 ### File handling / Input
 

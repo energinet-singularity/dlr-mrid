@@ -43,6 +43,8 @@ def main():
     # enviroment varible for filename
     if 'file_name' in os.environ:
         filepath_csv = "/data/" + os.environ.get('file_name')
+    elif os.environ['use_mock_data'] == 'TRUE':
+        filepath_csv = "/data/test_data.csv"
     else:
         filepath_csv = "/data/dlr_mrid_PROD.csv"
 
