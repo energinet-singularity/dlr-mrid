@@ -43,10 +43,10 @@ def main():
     # enviroment varible for filename
     if 'file_name' in os.environ:
         filepath_csv = "/data/" + os.environ.get('file_name')
-    elif os.environ['use_mock_data'] == 'TRUE':
-        filepath_csv = "/data/test_data.csv"
-    else:
+    elif os.environ.get('use_mock_data', 'FALSE').upper() == 'FALSE':
         filepath_csv = "/data/dlr_mrid_PROD.csv"
+    else:
+        filepath_csv = "/data/test_data.csv"
 
     # if enviroment varible not define database_expose get default database name
     if 'database_expose' in os.environ:
