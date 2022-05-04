@@ -59,7 +59,7 @@ def main():
             cycle_time = int(os.environ.get('cycle_time'))
         else:
             cycle_time = 900
-    except Exception as e:
+    except Exception:
         cycle_time = 900
         log.info(f" run with default cycle : {cycle_time}")
 
