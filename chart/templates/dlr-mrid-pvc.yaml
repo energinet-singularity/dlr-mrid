@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: dlr-mrid-pvc
+spec:
+  accessModes:
+    - {{ .Values.dlrmridDataVolume.accessMode }}
+  resources:
+    requests:
+      storage: {{ .Values.dlrmridDataVolume.size }}
+  storageClassName: {{ .Values.dlrmridDataVolume.storageClass}}

@@ -6,7 +6,7 @@ import os
 
 # non-function test ,special for DLR requirement, don't genral purpose code run.
 def test_file_header():
-    path = f"{os.path.dirname(os.path.realpath(__file__))}/valid-testdata/dlr_mrid_PROD.csv"
+    path = f"{os.path.dirname(os.path.realpath(__file__))}/valid-testdata/test_data.csv"
     colon1 = "AMPS_MRID"
     colon2 = "LINESEGMENT_MRID"
     colon3 = "DLR_ENABLE"
@@ -18,7 +18,7 @@ def test_file_header():
 
 
 def test_clean_file():
-    path = f"{os.path.dirname(os.path.realpath(__file__))}/valid-testdata/dlr_mrid_PROD.csv"
+    path = f"{os.path.dirname(os.path.realpath(__file__))}/valid-testdata/test_data.csv"
     dataframe = app.main.clean_file(path)
     colon2 = "-----"
     if colon2 in dataframe.iloc[1]:
@@ -34,8 +34,6 @@ def test_dataframe():
                       'LINESEGMENT_MRID': ['12345679-4567-ijkl-5678-123456789abc', '12345679-4567-ijkl-5678-123456789abc'],
                       'DLR_ENABLE': ['NO', 'YES']}
     expected_frame = pd.DataFrame.from_dict(expected_dict)
-    path = f"{os.path.dirname(os.path.realpath(__file__))}/valid-testdata/dlr_mrid_PROD.csv"
+    path = f"{os.path.dirname(os.path.realpath(__file__))}/valid-testdata/test_data.csv"
     dataframe = app.main.clean_file(path)
-    print(dataframe)
-    print(expected_frame)
     assert dataframe.equals(expected_frame)

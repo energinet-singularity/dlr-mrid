@@ -1,4 +1,2 @@
 TERMINAL_EMSNAME,FAR_NEAR,AMPS_MRID,LINESEGMENT_MRID,DLR_ENABLE
 ----------------,--------,---------,----------------,----------
-Dummy_line,N,12345678-1234-abcd-efgh-123456789abc,12345679-4567-ijkl-5678-123456789abc,NO
-Dummy_line,F,12345678-1234-abcd-efgh-123456789def,12345679-4567-ijkl-5678-123456789abc,YES
