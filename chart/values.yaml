@@ -3,7 +3,6 @@
 # Declare variables to be passed into your templates.
 replicaCount: 1
 
-
 #TEMPLATE INFO: Remember to fix the below repo path and remove this comment
 image:
   repository: ghcr.io/energinet-singularity/dlr-mrid/energinet-singularity/dlr-mrid
