@@ -74,7 +74,6 @@ def main():
         raise e
 
     log.info(f"file read time in sec: {cycle_time}")
-    log.info(f"database expose : {database_expose} ")
     my_api = singuapi.DataFrameAPI()
     while(True):
         new_stamp = time.ctime(os.path.getmtime(filepath_csv))
