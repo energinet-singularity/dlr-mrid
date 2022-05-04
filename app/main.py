@@ -40,7 +40,7 @@ def main():
     logging.basicConfig()
     logging.getLogger().setLevel(logging.INFO)
 
-    # enviroment varible for filename
+    # Load filename if defined - or use default value
     if 'file_name' in os.environ:
         filepath_csv = "/data/" + os.environ.get('file_name')
     elif os.environ.get('use_mock_data', 'FALSE').upper() == 'FALSE':
