@@ -9,4 +9,3 @@ spec:
     requests:
       storage: {{ .Values.dlrmridDataVolume.size }}
   storageClassName: {{ .Values.dlrmridDataVolume.storageClass}}
-  
