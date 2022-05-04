@@ -11,7 +11,6 @@ import pandas as pd
 # Initialize log
 log = logging.getLogger(__name__)
 
-# enviroment varible file cleanup to remove 2 line "---""
 def clean_file(file_loc: str) -> pd.DataFrame:
     """ Read file from file_loc and remove 1 data line "-----"
 
