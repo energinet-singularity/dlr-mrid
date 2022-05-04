@@ -67,7 +67,7 @@ def main():
         os.path.isfile(filepath_csv)
         log.info(f"file exists as : {filepath_csv} ")
     except Exception as e:
-        log.info(f" no file exists as : {filepath_csv} ")
+        log.info(f"File '{filepath_csv}' was not found")
         log.exception(f" reading file Failed with the message: '{e}'")
         raise e
 
