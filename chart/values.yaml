@@ -69,12 +69,8 @@ podAnnotations: {}
 nodeSelector: {}
 tolerations: []
 
-file:
-  name: ""
-database:
-  expose: ""
-cycle:
-  time: ""
-use:
-  mock:
-    data: ""
+#Available environment variables (un-hash to use):
+cycle_time_s: 900
+#file_name: "MY_FILE.csv"
+#database_expose: "DATA_NAME"
+#use_mock_data: "TRUE"
