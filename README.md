@@ -38,7 +38,7 @@ If VERY heavy readme, update and use this TOC
 This code set is build to publish data on RESTAPI from .CSV file.
 
 Specific use:-
-in our usecase we publish data ain replation to MRID of AMPs measurments used for DLR with the MRID of Line Segments.There can be many Amps measurement used for same lime segment as example AMPs from differnt phases and near and far terminals. Code set read file in .csv format with header information. There is no limitation for number of coloms for future expansion.
+in our usecase we publish data relationship between MRID and AMPs measurments used for DLR with the MRID of Line Segments.There can be many Amps measurement used for same lime segment as example AMPs from differnt phases and near and far terminals. Code set read file in .csv format with header information. There is no limitation for number of coloms for future expansion.
 
 In our usecase this file generated from ETS application with header as below.
 
