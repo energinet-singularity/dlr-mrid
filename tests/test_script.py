@@ -10,7 +10,7 @@ def test_file_header():
     colon1 = "AMPS_MRID"
     colon2 = "LINESEGMENT_MRID"
     colon3 = "DLR_ENABLE"
-    dataframe = pd.read_csv(path, delimiter=",", on_bad_lines='skip')
+    dataframe = pd.read_csv(path, delimiter=",", on_bad_lines='skip', encoding='cp1252')
     my_list = list(dataframe)
     assert colon1 in my_list
     assert colon2 in my_list
