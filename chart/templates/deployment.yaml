@@ -30,19 +30,9 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
-            - name: cycle_time
-              value: {{ .Values.cycle_time_s }}
-            {{- if .Values.file_name }}
-            - name: file_name
-              value: {{ .Values.file_name | quote  }}
-            {{- end }}
-            {{- if .Values.database_expose }}
-            - name: database_expose
-              value: {{ .Values.database_expose | quote  }}
-            {{- end }}
-            {{- if .Values.use_mock_data }}
-            - name: use_mock_data
-              value: {{ .Values.use_mock_data | quote  }}
+            {{- range $name, $value := .Values.EnvVars }}
+            - name: {{ $name }}
+              value: {{ $value | quote}}
             {{- end }}
               
           resources:
