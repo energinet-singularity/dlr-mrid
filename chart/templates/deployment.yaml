@@ -14,6 +14,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
+        app: dlrmrid
         {{- toYaml .Values.podLabels | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
