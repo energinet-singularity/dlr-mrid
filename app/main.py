@@ -41,10 +41,11 @@ def main():
     # Load filename if defined - or use default value
     if 'file_name' in os.environ:
         filepath_csv = "/data/" + os.environ.get('file_name')
-    elif os.environ.get('use_mock_data', 'FALSE').upper() == 'FALSE':
-        filepath_csv = "/data/dlr_mrid_PROD.csv"
-    else:
-        filepath_csv = "/data/test_data.csv"
+    if not filepath_csv.isfile():
+        if os.environ.get('use_mock_data', 'FALSE').upper() == 'FALSE':
+            filepath_csv = "/data/dlr_mrid_PROD.csv"
+        else:
+            filepath_csv = "/data/test_data.csv"
 
     # if enviroment varible not define database_expose get default database name
     if 'database_expose' in os.environ:

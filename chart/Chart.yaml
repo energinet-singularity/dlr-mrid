@@ -1,7 +1,7 @@
 apiVersion: v2
 name: dlr-mrid
 description: A Helm chart for energinet-singularity/dlr-mrid
-version: 0.0.15
+version: 0.0.16
 
 dependencies:
   - name: file-mover
