@@ -69,7 +69,7 @@ def main():
     except Exception as e:
         log.info(f"File '{filepath_csv}' was not found")
         log.exception(f" reading file Failed with the message: '{e}'")
-        raise e
+#        raise e
 
     log.info(f"file read time in sec: {cycle_time}")
     my_api = singuapi.DataFrameAPI()
