@@ -2,6 +2,8 @@
 import os
 import time
 import logging
+from time import sleep
+
 
 # Modules
 from singupy import api as singuapi
@@ -39,22 +41,17 @@ def main():
     logging.getLogger().setLevel(logging.INFO)
 
     # Load filename if defined - or use default value
-    try:
-        x = os.environ['file_name']
-        if x is not None:
-            filepath_csv = "/data/" + os.environ.get('file_name')
-            log.info(f"try-> if")
-        else:
-            filepath_csv = "/data/dlr_mrid_PROD.csv"
-            log.info(f" try->else")
-    except:
-        if os.environ.get('use_mock_data', 'FALSE').upper() == 'FALSE':
-            filepath_csv = "/data/dlr_mrid_PROD.csv"
-            log.info(f"except-> if")
-        else:
-            filepath_csv = "/data/test_data.csv"
-            log.info(f"except-> else")
-            
+    x = os.environ.get('file_name')
+    if x is not None:
+        filepath_csv = "/data/" + x
+        while not os.path.isfile(filepath_csv):
+            log.info(f"file not found will keep try every 30 sec")
+            sleep(30)
+    elif os.environ.get('use_mock_data', 'FALSE').upper() == 'FALSE':
+        filepath_csv = "/data/mock_dlr_mrid_PROD.csv"
+    else:
+        filepath_csv = "/data/test_data.csv"
+
 
     # if enviroment varible not define database_expose get default database name
     if 'database_expose' in os.environ:
