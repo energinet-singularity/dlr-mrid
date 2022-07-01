@@ -39,13 +39,22 @@ def main():
     logging.getLogger().setLevel(logging.INFO)
 
     # Load filename if defined - or use default value
-    if 'file_name' in os.environ:
-        filepath_csv = "/data/" + os.environ.get('file_name')
-    if not filepath_csv.isfile():
+    try:
+        x = os.environ['file_name']
+        if x is not None:
+            filepath_csv = "/data/" + os.environ.get('file_name')
+            log.info(f"try-> if")
+        else:
+            filepath_csv = "/data/dlr_mrid_PROD.csv"
+            log.info(f" try->else")
+    except:
         if os.environ.get('use_mock_data', 'FALSE').upper() == 'FALSE':
             filepath_csv = "/data/dlr_mrid_PROD.csv"
+            log.info(f"except-> if")
         else:
             filepath_csv = "/data/test_data.csv"
+            log.info(f"except-> else")
+            
 
     # if enviroment varible not define database_expose get default database name
     if 'database_expose' in os.environ:
