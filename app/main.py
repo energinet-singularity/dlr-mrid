@@ -48,9 +48,9 @@ def main():
             log.info(f"file not found will keep try every 30 sec")
             sleep(30)
     elif os.environ.get('use_mock_data', 'FALSE').upper() == 'FALSE':
-        filepath_csv = "/data/mock_dlr_mrid_PROD.csv"
+        filepath_csv = "/test_data/test_data.csv"
     else:
-        filepath_csv = "/data/test_data.csv"
+        filepath_csv = "/test_data/mock_dlr_mrid_PROD.csv"
         
 
     # if enviroment varible not define database_expose get default database name
