@@ -14,7 +14,7 @@ RUN pip3 install --upgrade pip && pip3 install -r requirements.txt --no-cache-di
 
 
 COPY app/* /app/
-COPY tests/valid-testdata/* /data/
+COPY tests/valid-testdata/* /test_data/
 
 EXPOSE 5000
 
