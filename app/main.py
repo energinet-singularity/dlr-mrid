@@ -51,7 +51,7 @@ def main():
         filepath_csv = "/data/mock_dlr_mrid_PROD.csv"
     else:
         filepath_csv = "/data/test_data.csv"
-
+        
 
     # if enviroment varible not define database_expose get default database name
     if 'database_expose' in os.environ:
